@@ -1,0 +1,11 @@
+
+
+
+@if (users) {
+
+    <ul>
+        @for (item of users; track $index) {
+            <li>{{item.userName}}</li>
+        }
+    </ul>
+}

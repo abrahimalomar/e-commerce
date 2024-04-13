@@ -1,0 +1,27 @@
+
+@if (productsWithcategories$ | async) {
+
+
+    <div>
+      
+      
+        @for (item of  productsWithcategories$ | async; track $index) {
+        <div class="row">
+      <div class="card" style="width: 18rem;">
+        <img [src]="'assets/aaa.png'" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+         <ul> <li class="card-text">{{ item.price }}-{{item.discount}}-{{item.categoryName}} </li></ul>
+         <a [routerLink]="['/Pay',item.id]" class="btn btn-primary">Go somewhere</a>
+
+
+        </div>
+      </div>
+    </div>
+
+  }
+    </div>
+    
+}
+
+

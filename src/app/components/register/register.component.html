@@ -1,0 +1,29 @@
+<form  [formGroup]="registerForm" (submit)="onSubmit()">
+    <div>
+      <label for="userName">User Name:</label>
+      <input type="text" id="userName" formControlName="userName" class="form-control">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="password" class="form-control">
+    </div>
+     <div>
+        <label for="Email">Email:</label>
+        <input type="email" id="Email" formControlName="email" class="form-control">
+
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+          <div  class="text-danger">
+            Username is required.
+          </div>
+        }
+        
+      </div>
+      <div>
+        <label for="PhoneNumber">Phone Number:</label>
+        <input type="text" id="PhoneNumber" formControlName="phoneNumber" class="form-control">
+      </div>
+  <div class="container text-center mt-3">
+    <button type="submit" class="btn btn-info" [disabled]="!registerForm.valid" id="btn">Register</button>
+  </div>
+    
+  </form>

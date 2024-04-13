@@ -1,0 +1,15 @@
+<form  [formGroup]="userProductForm" (submit)="onSubmit()">
+    <div>
+      <label for="Quantity">Quantity:</label>
+      <input type="number" id="Quantity" formControlName="quantity" class="form-control">
+     
+    </div>
+    <div>
+      <label for="ProductPrice">ProductPrice:</label>
+      <input type="number" id="ProductPrice" formControlName="productPrice" class="form-control">
+      </div>
+  <div class="container text-center mt-3">
+    <button type="submit" class="btn btn-info" [disabled]="!userProductForm.valid" id="btn">Pay</button>
+  </div>
+  </form>
+  

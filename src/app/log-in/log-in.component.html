@@ -1,0 +1,18 @@
+<form  [formGroup]="loginForm" (submit)="onSubmit()">
+    <div>
+      <label for="userName">User Name:</label>
+      <input type="text" id="userName" formControlName="userName" class="form-control">
+     
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="password" class="form-control">
+    
+     
+      </div>
+  <div class="container text-center mt-3">
+    <button type="submit" class="btn btn-info" [disabled]="!loginForm.valid" id="btn">Login</button>
+  </div>
+    
+  </form>
+  
