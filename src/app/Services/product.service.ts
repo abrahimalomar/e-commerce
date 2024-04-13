@@ -74,12 +74,34 @@ export class ProductService {
         'Authorization': `Bearer ${token}`
       }
     };
-    return this.http.get<ICategory[]>(this.apiUrl,httpOptions);
+    return this.http.get<ICategory[]>('https://localhost:44321/api/Categories',httpOptions);
   }
 
 
   
+  
 
+  create(data: IProduct): Observable<IProduct> {
+       
+    const headers = this.getToken();
+    const authorizationHeaderValue = headers.get('Authorization');
+    const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    };
+
+
+
+    return this.http.post<IProduct>(this.apiUrl, data,httpOptions).pipe(
+      map((response: IProduct) => {
+     
+        return response;
+      })
+    );
+  }
+  
 Pay(userProduct: UserProduct) {
   return this.http.post('https://localhost:44321/api/Home', userProduct).pipe(
     map(response => {

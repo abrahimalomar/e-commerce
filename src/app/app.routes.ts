@@ -10,6 +10,7 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductUserComponent } from './components/product-user/product-user.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';
 
 export const routes: Routes = 
 [
@@ -19,6 +20,7 @@ export const routes: Routes =
     {path:'product',component:ProductListComponent},
     {path:'category',component:CategoryListComponent},
     {path:'users',component:UserListComponent},
+    {path:'AddProduct',component:ProductAddComponent},
     // {path:'Pay:id',component:ProductUserComponent},
     { path: 'Pay/:id', component: ProductUserComponent },
     {path:'register',component:RegisterComponent},
