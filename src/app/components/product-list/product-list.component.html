@@ -12,16 +12,47 @@
         <div class="card-body">
           <h5 class="card-title">{{item.name}}</h5>
          <ul> <li class="card-text">{{ item.price }}-{{item.discount}}-{{item.categoryName}} </li></ul>
-         <a [routerLink]="['/Pay',item.id]" class="btn btn-primary">Go somewhere</a>
+         <a [routerLink]="['/Pay',item.id]" class="btn btn-primary">Go Pay</a>
 
 
         </div>
       </div>
     </div>
 
+
+
+
   }
     </div>
     
 }
 
+<table class="table table-striped">
+  <thead  >
+  <tr>
+    <th>Product Name</th>
+    <th>Price</th>
+    <th>discount</th>
+    <th>categoryName</th>
+    <th>Action</th>
+  </tr>
+</thead>
+<tbody>
+  @if (productsWithcategories$ | async) {
+    @for (item of  productsWithcategories$ | async; track $index) {
+  <tr>
+  
+    <td>{{item.name}}</td>
+    <td>{{item.price}}</td>
+    <td>{{item.discount}}</td>
+    <td>{{item.categoryName}}</td>
+      <td>
+    
+        <a (click)="Delete(item.id)">Delete</a>
+      </td>
+  </tr>
+}
+}
+</tbody>
+</table>
 

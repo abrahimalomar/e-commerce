@@ -91,7 +91,17 @@ Pay(userProduct: UserProduct) {
     })
   );
 }
-
+delete(id: number): Observable<IProductDTO> {
+  const headers = this.getToken();
+  const authorizationHeaderValue = headers.get('Authorization');
+  const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
+  const httpOptions = {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  };
+  return this.http.delete<IProductDTO>(`${this.apiUrl}/${id}`,httpOptions);
+}
 
 }
 

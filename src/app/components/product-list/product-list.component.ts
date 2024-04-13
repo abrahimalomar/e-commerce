@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ProductListComponent {
 
+
   products$!: Observable<IProduct[]>;
   categories$!: Observable<ICategory[]>;
 
@@ -47,6 +48,20 @@ export class ProductListComponent {
       map(([products, categories]) => products)
     );
   }
+  Delete(id: number) {
+    console.log('product Id ',id);
+  this.productService.delete(id).subscribe(
   
+    
+    response=>{
+      console.log(response);
+      
+    },
+    error=>{
+      console.log(error);
+      
+    }
+  )
+    }
 }
 
