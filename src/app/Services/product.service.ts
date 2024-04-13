@@ -13,22 +13,22 @@ import { map } from 'rxjs/operators';
 
 export class ProductService {
 
-  private apiUrl='https://localhost:44321/api/Products';
-    
+  private apiUrl = 'https://localhost:44321/api/Products';
+
   constructor(private http: HttpClient,
-    private handleErrorService:HandleErrorService
-  ) {}
-  
+    private handleErrorService: HandleErrorService
+  ) { }
 
- private getToken(){
- const token = localStorage.getItem('accessToken');
- const tokenExpiration = localStorage.getItem('tokenExpiration');
 
- 
-   return  new HttpHeaders({
-     'Authorization': `Bearer ${token}`
-   });
-   
+  private getToken() {
+    const token = localStorage.getItem('accessToken');
+    const tokenExpiration = localStorage.getItem('tokenExpiration');
+
+
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
   }
 
   getProductsWithCategory(): Observable<IProductDTO[]> {
@@ -42,14 +42,14 @@ export class ProductService {
         'Authorization': `Bearer ${token}`
       }
     };
-    return this.http.get<IProductDTO[]>(`${this.apiUrl}/GetProductsWithCategory`,httpOptions)
+    return this.http.get<IProductDTO[]>(`${this.apiUrl}/GetProductsWithCategory`, httpOptions)
       .pipe(
-        tap(p=>console.log(p)
+        tap(p => console.log(p)
         ),
         catchError(this.handleErrorService.handleError)
       );
   }
-   
+
   getAllProduct(): Observable<IProduct[]> {
     const headers = this.getToken();
     const authorizationHeaderValue = headers.get('Authorization');
@@ -59,13 +59,13 @@ export class ProductService {
         'Authorization': `Bearer ${token}`
       }
     };
-    
-    console.log('local storage Token : ',token);
-    
-    return this.http.get<IProduct[]>(this.apiUrl,httpOptions);
+
+    console.log('local storage Token : ', token);
+
+    return this.http.get<IProduct[]>(this.apiUrl, httpOptions);
   }
   getAllCategory(): Observable<ICategory[]> {
-    
+
     const headers = this.getToken();
     const authorizationHeaderValue = headers.get('Authorization');
     const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
@@ -74,15 +74,11 @@ export class ProductService {
         'Authorization': `Bearer ${token}`
       }
     };
-    return this.http.get<ICategory[]>('https://localhost:44321/api/Categories',httpOptions);
+    return this.http.get<ICategory[]>('https://localhost:44321/api/Categories', httpOptions);
   }
 
-
-  
-  
-
   create(data: IProduct): Observable<IProduct> {
-       
+
     const headers = this.getToken();
     const authorizationHeaderValue = headers.get('Authorization');
     const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
@@ -91,40 +87,63 @@ export class ProductService {
         'Authorization': `Bearer ${token}`
       }
     };
-
-
-
-    return this.http.post<IProduct>(this.apiUrl, data,httpOptions).pipe(
+    return this.http.post<IProduct>(this.apiUrl, data, httpOptions).pipe(
       map((response: IProduct) => {
-     
+
         return response;
       })
     );
   }
-  
-Pay(userProduct: UserProduct) {
-  return this.http.post('https://localhost:44321/api/Home', userProduct).pipe(
-    map(response => {
-      if (typeof response === 'string') {
-        return response;
-      } else {
-        return JSON.stringify(response);
-      }
-    })
-  );
-}
-delete(id: number): Observable<IProductDTO> {
-  const headers = this.getToken();
-  const authorizationHeaderValue = headers.get('Authorization');
-  const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
-  const httpOptions = {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  };
-  return this.http.delete<IProductDTO>(`${this.apiUrl}/${id}`,httpOptions);
-}
 
+
+
+  update(id: number, data: IProduct): Observable<IProduct> {
+    const headers = this.getToken();
+    const authorizationHeaderValue = headers.get('Authorization');
+    const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    };
+    return this.http.put<IProduct>(`${this.apiUrl}/${id}`, data,httpOptions);
+  }
+
+  Pay(userProduct: UserProduct) {
+    return this.http.post('https://localhost:44321/api/Home', userProduct).pipe(
+      map(response => {
+        if (typeof response === 'string') {
+          return response;
+        } else {
+          return JSON.stringify(response);
+        }
+      })
+    );
+  }
+  delete(id: number): Observable<IProductDTO> {
+    const headers = this.getToken();
+    const authorizationHeaderValue = headers.get('Authorization');
+    const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    };
+    return this.http.delete<IProductDTO>(`${this.apiUrl}/${id}`, httpOptions);
+  }
+
+  geById(id: number): Observable<IProduct> {
+    const headers = this.getToken();
+    const authorizationHeaderValue = headers.get('Authorization');
+    const token = authorizationHeaderValue ? authorizationHeaderValue.split(' ')[1] : null;
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    };
+    return this.http.get<IProduct>(`${this.apiUrl}/GetProduct/${id}`,httpOptions);
+  }
+  
 }
 
 

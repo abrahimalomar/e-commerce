@@ -11,6 +11,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductUserComponent } from './components/product-user/product-user.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductAddComponent } from './components/product-add/product-add.component';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
 
 export const routes: Routes = 
 [
@@ -23,6 +24,7 @@ export const routes: Routes =
     {path:'AddProduct',component:ProductAddComponent},
     // {path:'Pay:id',component:ProductUserComponent},
     { path: 'Pay/:id', component: ProductUserComponent },
+    {path:'Edit/:id',component:ProductEditComponent},
     {path:'register',component:RegisterComponent},
 
     

@@ -49,8 +49,8 @@
     <td>{{item.categoryName}}</td>
       <td>
     
-        <a (click)="Delete(item.id)">Delete</a>
-      
+        <a (click)="Delete(item.id)" class="btn btn-danger">Delete</a>
+      <a (click)="Edit(item.id)" class="btn btn-primary">Edit</a>
       </td>
   </tr>
 }
