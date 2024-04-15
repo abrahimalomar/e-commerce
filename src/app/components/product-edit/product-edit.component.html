@@ -32,8 +32,13 @@
           
         </select>
       </div>
-  <div class="container text-center mt-3">
-    <button type="submit" class="btn btn-info" [disabled]="!editProductForm.valid" id="btn">Add</button>
-  </div>
+      <div class="container text-center mt-3 d-flex justify-content-between">
+        <button type="submit" class="btn btn-info" [disabled]="!editProductForm.valid" id="btn">Update</button>
+        <a routerLink="/product" class="btn btn-secondary">Back</a>
+      </div>
+        
+  
     
   </form>
+ 
+  

@@ -10,12 +10,13 @@ import { ICategory } from "./category.model";
 
 // }
 
-export interface IProduct {
+export interface  IProduct {
     Id?: number;
     name: string;
     Quantity: number;
     price: number;
     Discount: number;
+    image:File,
     CategoryId?: number;
     category?: ICategory; 
   }

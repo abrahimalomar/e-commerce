@@ -1,53 +1,72 @@
-<!--
-     Id: number;
-    name: string;
-    Quantity: number;
-    price: number;
-    Discount: number;
--->
-<form  [formGroup]="productForm" (submit)="Add()">
-    <div>
-      <label for="Name">Name:</label>
-      <input type="text" id="Name" formControlName="name" class="form-control">
-    </div>
-    <div>
-      <label for="Quantity">Quantity:</label>
-      <input type="text" id="Quantity" formControlName="quantity" class="form-control">
-    </div>
-     <div>
-        <label for="Price">Price:</label>
-        <input type="number" id="Price" formControlName="price" class="form-control">
+<div class="row">
+  <div class="col-4 mt-6">
 
-        @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
-          <div  class="text-danger">
-            Username is required.
-          </div>
-        }
-        
+    <form  [formGroup]="productForm" (submit)="Add()">
+      <div>
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" formControlName="name" class="form-control">
       </div>
       <div>
-        <label for="Discount">Discount:</label>
-        <input type="text" id="Discount" formControlName="discount" class="form-control">
+        <label for="Quantity">Quantity:</label>
+        <input type="text" id="Quantity" formControlName="quantity" class="form-control">
       </div>
-
-      <div>
-        <label for="Category">Category:</label>
-        <select id="Category" formControlName="categoryId" class="form-control">
-            @for (category of categories$ | async; track $index) {
-                <option  [value]="category.id">{{ category.name }}</option>
-            }
+       <div>
+          <label for="Price">Price:</label>
+          <input type="number" id="Price" formControlName="price" class="form-control">
+  
+          @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
+            <div  class="text-danger">
+              price is required.
+            </div>
+          }
           
-        </select>
+        </div>
+        <div>
+          <label for="Discount">Discount:</label>
+          <input type="text" id="Discount" formControlName="discount" class="form-control">
+        </div>
+  
+        <div>
+          <label for="Category">Category:</label>
+          <select id="Category" formControlName="categoryId" class="form-control">
+              @for (category of categories$ | async; track $index) {
+                  <option  [value]="category.id">{{ category.name }}</option>
+              }
+            
+          </select>
+        </div>
+       
+     <div>
+          <div>
+            <label for="Image">Image:</label>
+            <input type="file" id="Image" (change)="onFileSelected($event)" class="form-control">
+          </div>
+          @if (productForm.invalid && productForm.dirty) 
+          {
+            <div  class="text-danger">
+              Please fill in all required fields.
+            </div>
+          }
+          
+     </div> 
+    <div class="container text-center mt-3">
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="btn btn-info" [disabled]="!productForm.valid" id="btn">Add</button>
+        </div>
+        <div class="col">
+          <a routerLink="/product" class="btn btn-secondary">Back</a>
+        </div>
       </div>
-  <div class="container text-center mt-3">
-    <button type="submit" class="btn btn-info" [disabled]="!productForm.valid" id="btn">Add</button>
-  </div>
+    </div>
     
-  </form>
 
 
+    </form>
+  </div>
 
-
-
-
-
+  
+<div class="col">
+  <app-product-list></app-product-list>
+</div>
+</div>

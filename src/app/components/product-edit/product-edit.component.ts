@@ -5,14 +5,15 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ICategory } from '../../models/category.model';
 import { IProduct } from '../../models/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { CategoryService } from '../../Services/category.service';
 
 @Component({
   selector: 'app-product-edit',
   standalone:true,
-  imports:[ReactiveFormsModule ,CommonModule],
+  imports:[ReactiveFormsModule ,CommonModule,RouterModule],
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css'],
 
@@ -26,21 +27,23 @@ export class ProductEditComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private categoryService:CategoryService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
     this.getCategories();
 
-    // Retrieve product ID from route params
+   
     this.route.params.pipe(
       switchMap(params => {
         this.productId = params['id'];
-        // Fetch product details based on ID
+
         return this.productService.geById(this.productId);
       })
     ).subscribe((product: IProduct) => {
-      // Populate form fields with product data
+
       this.editProductForm.patchValue({
         name: product.name,
         discount: product.Discount,
@@ -60,7 +63,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categories$ = this.productService.getAllCategory();
+    this.categories$ = this.categoryService.getAllCategory();
   }
 
   Edit(): void {
@@ -70,12 +73,13 @@ export class ProductEditComponent implements OnInit {
       const price = this.editProductForm.value.price;
       const quantity = this.editProductForm.value.quantity;
       const categoryId = this.editProductForm.value.categoryId;
-
+      const image = this.editProductForm.value.image;
       const productData: IProduct = {
         name: name,
         price: price,
         Discount: discount,
         Quantity: quantity,
+        image:image,
         CategoryId: categoryId
       };
 
@@ -83,6 +87,7 @@ export class ProductEditComponent implements OnInit {
         response => {
           console.log('Product updated successfully:', response);
           // Redirect or show success message
+          this.router.navigate(['/product'])
         },
         error => {
           console.error('Error updating product:', error);
