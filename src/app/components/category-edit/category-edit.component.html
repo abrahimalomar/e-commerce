@@ -1,0 +1,26 @@
+<!-- 
+
+<div class="container">
+    <h2>Edit Category</h2>
+    <div>
+      <label for="categoryName">Category Name:</label>
+      <input type="text" id="categoryName" [(ngModel)]="category.name">
+    </div>
+    <div>
+      <button class="btn btn-primary" (click)="updateCategory()">Update</button>
+    </div>
+  </div>
+-->
+<!-- category-edit.component.html -->
+
+<div class="container">
+    <h2>Edit Category</h2>
+    <form [formGroup]="categoryForm" (ngSubmit)="updateCategory()">
+      <div class="form-group">
+        <label for="categoryName">Category Name:</label>
+        <input type="text" id="categoryName" formControlName="name" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
+  
