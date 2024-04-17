@@ -6,6 +6,7 @@ import { CategoryService } from '../../Services/category.service';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { AuthService } from '../../Services/auth.service';
 
 
 @Component({
@@ -20,45 +21,42 @@ export class CategoryListComponent implements OnInit {
   categories$!: Observable<ICategory[]>;
 
 
-  constructor(private categoryService:CategoryService,
-    private router:Router
-  ){}
+  constructor(private categoryService: CategoryService,
+    private router: Router,
+    private authservice: AuthService
+  ) { }
 
   ngOnInit(): void {
-  this.getAll()
+    this.getAll()
+    console.log('user id in compone categroy ', this.authservice.getUserId());
+  }
+
+
+  getAll() {
+    this.categories$ = this.categoryService.getAllCategory()
 
   }
 
 
-  getAll(){
-    this.categories$=this.categoryService.getAllCategory()
+  Edit(Id: number) {
+    console.log('Edit category ID', Id);
 
+    this.router.navigate(['editCategory', Id]);
   }
 
 
-    Edit(Id:number) {
-      console.log('Edit category ID',Id);
-      
-      this.router.navigate(['editCategory', Id]);
-    }
-   
-  
-    Delete(id: number) {
-      console.log('category Id ',id);
-      this.categoryService.delete(id).subscribe(
-        response=>{
-          console.log(response);
+  Delete(id: number) {
+    console.log('category Id ', id);
+    this.categoryService.delete(id).subscribe(
+      response => {
+        console.log(response);
         this.getAll();
-          
-        },
-        error=>{
-          console.log(error);
-          
-        }
-      )
-    }
+
+      },
+      error => {
+        console.log(error);
+
+      }
+    )
+  }
 }
-
-
-
-

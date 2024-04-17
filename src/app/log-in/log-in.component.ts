@@ -26,7 +26,7 @@ export class LogInComponent {
       password: ['', Validators.required]
     });
   }
-
+  
   onSubmit() {
     if (this.loginForm.valid) {
       const userName = this.loginForm.value?.userName;
@@ -45,6 +45,12 @@ export class LogInComponent {
         response=>{
           console.log('Response : ',response);
           this.route.navigate(['/product'])
+          const userId=response.userId
+          if (userId) {
+            this.authservice.setUserId(userId);
+            console.log('user Id',userId);
+            
+          }
         },
         error=>{
           console.log('Erorr : ',error);

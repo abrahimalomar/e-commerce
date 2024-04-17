@@ -8,19 +8,20 @@ import { CategoryService } from '../../Services/category.service';
 
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { ProductDetailsComponent } from "../product-details/product-details.component";
 
 
 @Component({
-  selector: 'app-product-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.css'
+    selector: 'app-product-list',
+    standalone: true,
+    templateUrl: './product-list.component.html',
+    styleUrl: './product-list.component.css',
+    imports: [CommonModule, RouterModule, ProductDetailsComponent]
 })
 export class ProductListComponent {
 
-
-
+  currentproduct!:IProductDTO;
+  //currentTutorial: Tutorial = {};
   products$!: Observable<IProduct[]>;
   categories$!: Observable<ICategory[]>;
 
@@ -67,6 +68,13 @@ export class ProductListComponent {
   Edit(Id:number) {
     this.router.navigate(['Edit', Id]);
   }
- 
+  setProduct(product: IProductDTO) {
+    console.log('set product ......... ');
+    
+    this.currentproduct=product;
+    console.log(this.currentproduct);
+    
+    
+    }
 }
 

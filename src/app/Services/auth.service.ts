@@ -10,18 +10,27 @@ import { IRegister } from '../models/register';
   providedIn: 'root'
 })
 export class AuthService{
+  private userId: string | null = null;
   private loggedInUserId: string | null = null
   private apiUrl = 'https://localhost:44321/api/Accounts'; 
-
+  private readonly USER_ID_KEY = 'userId';
   constructor(private http: HttpClient) { }
  
 
+   setUserId(userId: string): void {
+    sessionStorage.setItem(this.USER_ID_KEY, userId);
+  }
+
+  getUserId(): string | null {
+    return sessionStorage.getItem(this.USER_ID_KEY);
+  }
+
+  clearUserId(): void {
+    sessionStorage.removeItem(this.USER_ID_KEY);
+  }
   getLoggedInUserId(): string | null {
-    
-    
     return this.loggedInUserId;
   }
-  
  private getToken(){
   const token = localStorage.getItem('accessToken');
   const tokenExpiration = localStorage.getItem('tokenExpiration');

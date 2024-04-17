@@ -1,1 +1,19 @@
-<p>product-details works!</p>
+
+@if (viewMode) {
+
+<p>{{viewMode}}</p>
+    <ng-container>
+        <ul>
+            <li>{{ currentProduct.name }}</li>
+            <li>{{ currentProduct.price }}</li>
+            <li>{{ currentProduct.quantity }}</li>
+            <li>{{ currentProduct.categoryName }}</li>
+        </ul>
+    </ng-container>
+    
+}
+
+
+
+
+

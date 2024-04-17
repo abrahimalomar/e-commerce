@@ -1,4 +1,4 @@
-<!--
+
 @if (productsWithcategories$ | async) {
 
 
@@ -26,7 +26,7 @@
     </div>
     
 }
--->
+
 <!-- <a routerLink="/AddProduct" class="btn btn-info">Add Product </a> -->
 <table class="table table-striped">
 
@@ -42,9 +42,9 @@
 <tbody>
   @if (productsWithcategories$ | async) {
     @for (item of  productsWithcategories$ | async; track $index) {
-  <tr>
+  <tr >
   
-    <td>{{item.name}}</td>
+    <td (click)="setProduct(item)">{{item.name}}</td>
     <td>{{item.price}}</td>
     <td>{{item.discount}}</td>
     <td>{{item.categoryName}}</td>
@@ -58,4 +58,11 @@
 }
 </tbody>
 </table>
+<div class="col-md-6">
+  <app-product-details
+    [viewMode]="currentproduct ? true : false"
+    [currentProduct]="currentproduct"
+  ></app-product-details>
+</div>
+
 
